@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./main.css" />
+    <title>Indicador de Desempeño</title>
+    <style>
+      .citas-realizadas {
+        background-color: #f2c94c;
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      .citas-canceladas {
+        background-color: #eb5757;
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="px-4 pt-5 d-grid gap-4 general-mamx-w mx-auto">
+      <div class="w-100">
+        <a href="/home.html">
+          <img class="" src="./assets/flecha-izquierda.png" alt="Volver" />
+        </a>
+      </div>
+      <div class="bg-white shadow-lg border-custom p-3 container-sm">
+        <div class="text-center text-custom-main">
+          <p class="text-tile">Indicador de Desempeño</p>
+        </div>
+        <div
+          class="d-flex justify-content-center align-items-center gap-3 mb-4"
+        >
+          <img
+            class="w-25 h-25"
+            src="./assets/grafico-de-torta.png"
+            alt="Gráfico Circular"
+          />
+          <div class="d-flex flex-column justify-content-center">
+            <div><span class="citas-realizadas"></span>Citas Realizadas</div>
+            <div><span class="citas-canceladas"></span>Citas Canceladas</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around align-items-center">
+          <div class="text-center">
+            <img class="w-50 h-50" src="./assets/cheque.png" alt="Icono" />
+            <div>
+              <strong class="text-custom-main">Citas Realizadas: </strong>75%
+            </div>
+          </div>
+          <div class="text-center">
+            <img class="w-50 h-50" src="./assets/cancelar.png" alt="Icono" />
+            <div>
+              <strong class="text-custom-main">Citas canceladas: </strong>75%
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <p class="">
+            Usted Tuvo un <strong class="text-success">Buen Desempeño</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
