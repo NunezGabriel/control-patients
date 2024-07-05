@@ -38,7 +38,8 @@ const medicinas = [
     precio: 12.99,
     precioPromocional: 10.5,
     contenidoNeto: "30 tabletas de 400mg",
-    linkImagen: "https://ejemplo.com/imagenes/ibuprofeno.jpg",
+    linkImagen:
+      "https://www.lasanteca.com/userfiles/2018/12/IBUPROFENO-800MG-CAJA-POR-50-TABLETAS-CON-BLISTER.jpg",
   },
   {
     nombre: "Omeprazol",
@@ -46,7 +47,8 @@ const medicinas = [
     precio: 15.5,
     precioPromocional: 13.75,
     contenidoNeto: "14 cápsulas de 20mg",
-    linkImagen: "https://ejemplo.com/imagenes/omeprazol.jpg",
+    linkImagen:
+      "https://farmaciauniversal.com/assets/sources/PRODUCTOS/00896a.jpg",
   },
   {
     nombre: "Paracetamol",
@@ -54,7 +56,8 @@ const medicinas = [
     precio: 8.75,
     precioPromocional: 7.5,
     contenidoNeto: "20 tabletas de 500mg",
-    linkImagen: "https://ejemplo.com/imagenes/paracetamol.jpg",
+    linkImagen:
+      "https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/108010X.jpg",
   },
   {
     nombre: "Amoxicilina",
@@ -62,7 +65,8 @@ const medicinas = [
     precio: 22.0,
     precioPromocional: 19.99,
     contenidoNeto: "21 cápsulas de 500mg",
-    linkImagen: "https://ejemplo.com/imagenes/amoxicilina.jpg",
+    linkImagen:
+      "https://farmaciauniversal.com/assets/sources/PRODUCTOS/22598a.jpg",
   },
   {
     nombre: "Loratadina",
@@ -70,7 +74,8 @@ const medicinas = [
     precio: 11.25,
     precioPromocional: 9.99,
     contenidoNeto: "10 tabletas de 10mg",
-    linkImagen: "https://ejemplo.com/imagenes/loratadina.jpg",
+    linkImagen:
+      "https://contifarma.pe/wp-content/uploads/2021/09/Loratadina-10-mg.png",
   },
   {
     nombre: "Metformina",
@@ -78,7 +83,8 @@ const medicinas = [
     precio: 18.5,
     precioPromocional: 16.75,
     contenidoNeto: "60 tabletas de 850mg",
-    linkImagen: "https://ejemplo.com/imagenes/metformina.jpg",
+    linkImagen:
+      "https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/427493M.jpg",
   },
 ];
 
@@ -170,33 +176,41 @@ export function mostrarDoctores() {
 }
 
 export function mostrarMedicina() {
-  const container = document.getElementById("doctoresContainer");
+  const container = document.getElementById("medicinaContainer");
 
   container.innerHTML = "";
 
-  doctores.forEach((doctor) => {
-    const doctorHTML = `
+  medicinas.forEach((medicina) => {
+    const medicinaHTML = `
         <div class="shadow-lg border-custom p-3 general-container">
-          <div class="d-grid justify-content-center align-items-center mb-3">
-            <img src="./assets/doctor-blue.png" alt="imagen de medico" />
+          <div class="">
+            <h1 class="text-center mb-3 text-custom-main">${medicina.nombre}</h1>
           </div>
-          <div>
-            <p>
-              <span class="text-custom-main fw-medium">Nombre:</span> ${doctor.nombre}
+          <div class="d-grid overflow-hidden mb-4 shadow rounded-3 justify-content-center align-items-center">
+            <img src=${medicina.linkImagen} class="imagenCard" alt="Abrilar EA 575" />
+          </div>
+          <div class="description">
+            <h5 class="text-custom-main">Descripcion</h5>
+            <p class="text-medium">
+              ${medicina.descripcion}
             </p>
-            <p><span class="text-custom-main fw-medium">DNI:</span> ${doctor.DNI}</p>
             <p>
-              <span class="text-custom-main fw-medium">ESPECIALIDAD:</span>
-              ${doctor.especialidad}
+              <span class="text-custom-main fw-medium">PRECIO:</span> ${medicina.precio}
             </p>
             <p>
-              <span class="text-custom-main fw-medium">UNIVERSIDAD:</span>
-              Sideral Carrion
+              <span class="text-custom-main fw-medium"
+                >PRECIO PROMOCIONAL:</span
+              >
+              ${medicina.precioPromocional}
+            </p>
+            <p>
+              <span class="text-custom-main fw-medium">CONTENIDO NETO:</span>
+              ${medicina.contenidoNeto}
             </p>
           </div>
         </div>
     `;
 
-    container.innerHTML += doctorHTML;
+    container.innerHTML += medicinaHTML;
   });
 }

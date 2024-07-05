@@ -1,4 +1,4 @@
-import { mostrarPacientes, mostrarDoctores } from "./data.js";
+import { mostrarPacientes, mostrarDoctores, mostrarMedicina } from "./data.js";
 
 switch (window.location.href) {
   case "http://127.0.0.1:5500/agregar.html":
@@ -62,6 +62,9 @@ switch (window.location.href) {
     break;
   case "http://127.0.0.1:5500/personal-medico.html":
     mostrarDoctores();
+    break;
+  case "http://127.0.0.1:5500/farmacologia.html":
+    mostrarMedicina();
     break;
   default:
     console.log("no exito");

@@ -95,6 +95,10 @@
 .father-container {
   height: 100vh;
 }
+.imagenCard {
+  width: 100%;
+  max-height: 250px;
+}
 
 @media screen and (min-width: 768px) {
   .main-card-w {
