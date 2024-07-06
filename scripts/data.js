@@ -88,7 +88,7 @@ const medicinas = [
   },
 ];
 
-export function loadPacientes() {
+export function traerPaciente() {
   let pacientes = [];
 
   if (localStorage.getItem("pacientes")) {
@@ -98,7 +98,7 @@ export function loadPacientes() {
 }
 
 export function mostrarPacientes() {
-  const pacientes = loadPacientes();
+  const pacientes = traerPaciente();
   const container = document.querySelector(
     ".d-flex.flex-wrap.gap-5.justify-content-center"
   );
@@ -207,6 +207,39 @@ export function mostrarMedicina() {
               <span class="text-custom-main fw-medium">CONTENIDO NETO:</span>
               ${medicina.contenidoNeto}
             </p>
+          </div>
+        </div>
+    `;
+
+    container.innerHTML += medicinaHTML;
+  });
+}
+
+export function mostrarCitas() {
+  const pacientes = traerPaciente();
+  const container = document.getElementById("citasContainer");
+
+  container.innerHTML = "";
+
+  pacientes.forEach((paciente) => {
+    const medicinaHTML = `
+        <div class="shadow-lg border-custom p-4 general-container">
+          <div class="text-medium">
+            <h1>CITA MEDICA</h1>
+            <p class="text-medium">
+              <span class="fw-bold">Nombre de Paciente:</span> ${paciente.nombre}
+            </p>
+            <p class="text-medium">
+              <span class="fw-bold">Departamento:</span> Neurologia
+            </p>
+            <p class="text-medium">
+              <span class="fw-bold">Fecha:</span> 20/05/2024
+            </p>
+            <p class="text-medium"><span class="fw-bold">Hora:</span> 2:00PM</p>
+          </div>
+          <div class="d-flex justify-content-between text-medium">
+            <button class="btn btn-danger">CANCELAR</button>
+            <button class="btn btn-success">ACEPTAR</button>
           </div>
         </div>
     `;
