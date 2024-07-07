@@ -5,6 +5,7 @@ import {
   mostrarCitas,
   agregarNombre,
   agregarDatosPerfil,
+  agregarDoctor,
 } from "./data.js";
 
 switch (window.location.href) {
@@ -68,6 +69,7 @@ switch (window.location.href) {
     mostrarPacientes();
     break;
   case "http://127.0.0.1:5500/personal-medico.html":
+    agregarDoctor();
     mostrarDoctores();
     break;
   case "http://127.0.0.1:5500/farmacologia.html":

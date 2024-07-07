@@ -1,32 +1,32 @@
 let doctores = [
   {
     nombre: "Dra Rosa Quispe",
-    DNI: "73685241",
+    dni: "73685241",
     especialidad: "Cardiologia",
   },
   {
     nombre: "Dr. Josue Urquizo",
-    DNI: "19472063",
+    dni: "19472063",
     especialidad: "Medicina Interna",
   },
   {
     nombre: "Dra. Emily Lopez",
-    DNI: "85930167",
+    dni: "85930167",
     especialidad: "Pediatria",
   },
   {
     nombre: "Dr. Michael Ramos",
-    DNI: "42618905",
+    dni: "42618905",
     especialidad: "Oncologia",
   },
   {
     nombre: "Dra. Susan Perez",
-    DNI: "94725183",
+    dni: "94725183",
     especialidad: "Oftalmologia",
   },
   {
     nombre: "Dr. Peter Gonzales",
-    DNI: "60374829",
+    dni: "60374829",
     especialidad: "Psiquiatria",
   },
 ];
@@ -158,7 +158,7 @@ export function mostrarDoctores() {
             <p>
               <span class="text-custom-main fw-medium">Nombre:</span> ${doctor.nombre}
             </p>
-            <p><span class="text-custom-main fw-medium">DNI:</span> ${doctor.DNI}</p>
+            <p><span class="text-custom-main fw-medium">DNI:</span> ${doctor.dni}</p>
             <p>
               <span class="text-custom-main fw-medium">ESPECIALIDAD:</span>
               ${doctor.especialidad}
@@ -275,4 +275,9 @@ export function agregarDatosPerfil() {
     `;
 
   container.innerHTML += medicinaHTML;
+}
+
+export function agregarDoctor() {
+  const doctor = traerDoctor();
+  doctores.unshift(doctor);
 }
