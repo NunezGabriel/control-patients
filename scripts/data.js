@@ -230,7 +230,7 @@ export function mostrarCitas() {
               <span class="fw-bold">Nombre de Paciente:</span> ${paciente.nombre}
             </p>
             <p class="text-medium">
-              <span class="fw-bold">Departamento:</span> Neurologia
+              <span class="fw-bold">Referido de:</span> ${paciente.doctor}
             </p>
             <p class="text-medium">
               <span class="fw-bold">Fecha:</span> 20/05/2024
@@ -246,4 +246,33 @@ export function mostrarCitas() {
 
     container.innerHTML += medicinaHTML;
   });
+}
+
+export function agregarNombre() {
+  const doctor = traerDoctor();
+  const container = document.getElementById("nombreDoctor");
+
+  container.innerHTML = "";
+
+  const medicinaHTML = `
+          <h1 class="text-custom-main text-tile">Hola Dr ${doctor.nombre}!</h1>
+          <p class="text-custom-ligth">Buenos Dias</p>
+    `;
+
+  container.innerHTML += medicinaHTML;
+}
+
+export function agregarDatosPerfil() {
+  const doctor = traerDoctor();
+  const container = document.getElementById("profileCardContainer");
+
+  container.innerHTML = "";
+
+  const medicinaHTML = `
+            <img src="./assets/asistencia-medica 1.png" class="w-25" alt="" />
+            <h1 class="fs-2 fw-light">${doctor.dni}</h1>
+            <h1 class="fs-2 fw-light">${doctor.especialidad}</h1>
+    `;
+
+  container.innerHTML += medicinaHTML;
 }
