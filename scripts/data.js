@@ -31,6 +31,17 @@ let doctores = [
   },
 ];
 
+const hospitales = [
+  "Princeton-Plainsbor",
+  "Barnes-Jewish",
+  "Mount Sinai",
+  "Houston Methodist Hospital",
+];
+
+export function obtenerHospital(hospitales) {
+  return hospitales[Math.floor(Math.random() * hospitales.length)];
+}
+
 const medicinas = [
   {
     nombre: "Ibuprofeno",
@@ -221,7 +232,8 @@ export function mostrarCitas() {
 
   container.innerHTML = "";
 
-  pacientes.forEach((paciente) => {
+  pacientes.forEach((paciente, index) => {
+    let hospital = obtenerHospital(hospitales);
     const medicinaHTML = `
         <div class="shadow-lg border-custom p-4 general-container">
           <div class="text-medium">
@@ -233,18 +245,63 @@ export function mostrarCitas() {
               <span class="fw-bold">Referido de:</span> ${paciente.doctor}
             </p>
             <p class="text-medium">
-              <span class="fw-bold">Fecha:</span> 20/05/2024
+              <span class="fw-bold">Sintomas:</span> ${paciente.sintomas}
             </p>
-            <p class="text-medium"><span class="fw-bold">Hora:</span> 2:00PM</p>
+            <p class="text-medium"><span class="fw-bold">Hospital:</span> ${hospital}</p>
           </div>
           <div class="d-flex justify-content-between text-medium">
-            <button class="btn btn-danger">CANCELAR</button>
-            <button class="btn btn-success">ACEPTAR</button>
+            <button data-id="${paciente.dni}" class="btn btn-danger btnCancelar" data-index="${index}">CANCELAR</button>
+            <button data-id="${paciente.dni}" class="btn btn-success btnAceptar" data-index="${index}">ACEPTAR</button>
           </div>
         </div>
     `;
 
     container.innerHTML += medicinaHTML;
+  });
+
+  agregarContadorLS();
+}
+
+export function agregarContadorLS() {
+  let citasCanceladas = parseInt(localStorage.getItem("citasCanceladas")) || 0;
+  let citasAceptadas = parseInt(localStorage.getItem("citasAceptadas")) || 0;
+  const btnCancelar = document.querySelectorAll(".btnCancelar");
+  const btnAceptar = document.querySelectorAll(".btnAceptar");
+
+  function updateCounter(type, dni) {
+    if (type === "canceladas") {
+      citasCanceladas++;
+      localStorage.setItem("citasCanceladas", citasCanceladas);
+      console.log("Citas canceladas:", citasCanceladas);
+    } else if (type === "aceptadas") {
+      citasAceptadas++;
+      localStorage.setItem("citasAceptadas", citasAceptadas);
+      console.log("Citas aceptadas:", citasAceptadas);
+    }
+  }
+
+  btnCancelar.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      updateCounter("canceladas");
+      let dni = btn.getAttribute("data-id");
+      let pacientes = traerPaciente();
+      pacientes = pacientes.filter((paciente) => paciente.dni !== dni); // Borra el Paciente
+      localStorage.setItem("pacientes", JSON.stringify(pacientes)); // Borra el Paciente
+      console.log(pacientes);
+      location.reload();
+    });
+  });
+
+  btnAceptar.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      updateCounter("aceptadas");
+      let dni = btn.getAttribute("data-id");
+      let pacientes = traerPaciente();
+      pacientes = pacientes.filter((paciente) => paciente.dni !== dni); // Borra el Paciente
+      localStorage.setItem("pacientes", JSON.stringify(pacientes)); // Borra el Paciente
+      console.log(pacientes);
+      location.reload(); // Recarga la pag
+    });
   });
 }
 
@@ -280,4 +337,68 @@ export function agregarDatosPerfil() {
 export function agregarDoctor() {
   const doctor = traerDoctor();
   doctores.unshift(doctor);
+}
+
+export function traerContadorCitasAceptadas() {
+  let citasContA;
+  if (localStorage.getItem("citasAceptadas")) {
+    citasContA = JSON.parse(localStorage.getItem("citasAceptadas"));
+  }
+  return citasContA;
+}
+
+export function traerContadorCitasCanceladas() {
+  let citasContC;
+  if (localStorage.getItem("citasCanceladas")) {
+    citasContC = JSON.parse(localStorage.getItem("citasCanceladas"));
+  }
+  return citasContC;
+}
+
+export function mostrarDesenpeno() {
+  let citasA = traerContadorCitasAceptadas();
+  let citasC = traerContadorCitasCanceladas();
+  const container = document.getElementById("desempenoContainer");
+
+  container.innerHTML = "";
+
+  const medicinaHTML = `
+        <div class="text-center text-custom-main">
+          <p class="text-tile">Indicador de Desempeño</p>
+        </div>
+        <div
+          class="d-flex justify-content-center align-items-center gap-3 mb-4"
+        >
+          <img
+            class="w-25 h-25"
+            src="./assets/grafico-de-torta.png"
+            alt="Gráfico Circular"
+          />
+          <div class="d-flex flex-column justify-content-center">
+            <div><span class="citas-realizadas"></span>Citas Realizadas</div>
+            <div><span class="citas-canceladas"></span>Citas Canceladas</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around align-items-center">
+          <div class="text-center">
+            <img class="w-50 h-50" src="./assets/cheque.png" alt="Icono" />
+            <div>
+              <strong class="text-custom-main">Citas Realizadas: </strong>${citasA}
+            </div>
+          </div>
+          <div class="text-center">
+            <img class="w-50 h-50" src="./assets/cancelar.png" alt="Icono" />
+            <div>
+              <strong class="text-custom-main">Citas canceladas: </strong>${citasC}
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <p class="">
+            Usted Tuvo un <strong class="text-success">Buen Desempeño</strong>
+          </p>
+        </div>
+    `;
+
+  container.innerHTML += medicinaHTML;
 }

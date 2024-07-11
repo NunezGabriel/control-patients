@@ -6,6 +6,8 @@ import {
   agregarNombre,
   agregarDatosPerfil,
   agregarDoctor,
+  agregarContadorLS,
+  mostrarDesenpeno,
 } from "./data.js";
 
 switch (window.location.href) {
@@ -77,12 +79,16 @@ switch (window.location.href) {
     break;
   case "http://127.0.0.1:5500/citas.html":
     mostrarCitas();
+    agregarContadorLS();
     break;
   case "http://127.0.0.1:5500/home.html":
     agregarNombre();
     agregarDatosPerfil();
     break;
+  case "http://127.0.0.1:5500/desempeno.html":
+    mostrarDesenpeno();
+    break;
   default:
-    console.log("no exito");
+    console.log("no existo");
     break;
 }
