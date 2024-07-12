@@ -251,7 +251,7 @@ export function mostrarCitas() {
           </div>
           <div class="d-flex justify-content-between text-medium">
             <button data-id="${paciente.dni}" class="btn btn-danger btnCancelar" data-index="${index}">CANCELAR</button>
-            <button data-id="${paciente.dni}" class="btn btn-success btnAceptar" data-index="${index}">ACEPTAR</button>
+            <button data-paciente="${paciente}" data-id="${paciente.dni}" class="btn btn-success btnAceptar" data-index="${index}">ACEPTAR</button>
           </div>
         </div>
     `;
@@ -280,6 +280,28 @@ export function agregarContadorLS() {
     }
   }
 
+  function agregarFactura() {
+    let nroFactura = Math.floor(
+      Math.random() * (999999999 - 100000000 + 1) + 100000000
+    );
+    let hospital = obtenerHospital(hospitales);
+    let doctor = traerDoctor();
+    let fecha = new Date();
+    let nuevaFactura = {
+      nroFactura: nroFactura,
+      fecha: fecha,
+      hospital: hospital,
+      doctor: doctor.nombre,
+      cita: doctor.especialidad,
+    };
+
+    let facturas = JSON.parse(localStorage.getItem("facturas")) || [];
+
+    facturas.push(nuevaFactura);
+
+    localStorage.setItem("facturas", JSON.stringify(facturas));
+  }
+
   btnCancelar.forEach((btn) => {
     btn.addEventListener("click", () => {
       updateCounter("canceladas");
@@ -299,7 +321,7 @@ export function agregarContadorLS() {
       let pacientes = traerPaciente();
       pacientes = pacientes.filter((paciente) => paciente.dni !== dni); // Borra el Paciente
       localStorage.setItem("pacientes", JSON.stringify(pacientes)); // Borra el Paciente
-      console.log(pacientes);
+      agregarFactura();
       location.reload(); // Recarga la pag
     });
   });
@@ -401,4 +423,57 @@ export function mostrarDesenpeno() {
     `;
 
   container.innerHTML += medicinaHTML;
+}
+
+export function traerFacturas() {
+  let facturas = [];
+
+  if (localStorage.getItem("facturas")) {
+    facturas = JSON.parse(localStorage.getItem("facturas"));
+  }
+  return facturas;
+}
+
+export function mostrarFacturas() {
+  const facturas = traerFacturas();
+  console.log(facturas);
+  const container = document.getElementById("facturasContainer");
+
+  container.innerHTML = "";
+
+  facturas.forEach((factura) => {
+    const pacienteHTML = `
+        <div class="shadow-lg border-custom p-4 general-container">
+          <div class="text-medium">
+            <h1>Factura hospitalaria</h1>
+            <p>Núm. de factura: ${factura.nroFactura}</p>
+            <p>Fecha de la factura: ${factura.fecha}</p>
+          </div>
+          <div class="d-flex justify-content-between text-medium">
+            <div class="">
+              <p><strong>De Hospital:</strong></p>
+              <p>${factura.hospital}</p>
+            </div>
+            <div class="">
+              <p><strong>Facturar a:</strong></p>
+              <p>${factura.doctor}</p>
+            </div>
+          </div>
+
+          <div class="grid-eigth d-grid text-medium fw-medium text-center">
+            <div class="bg-custom-main text-white">descripción</div>
+            <div class="bg-custom-main text-white">tarifa</div>
+            <div class="bg-custom-main text-white">impuesto</div>
+            <div class="bg-custom-main text-white">importe</div>
+
+            <div class="bg-custom-secondary">cita ${factura.cita}</div>
+            <div class="bg-custom-secondary">9,991.00</div>
+            <div class="bg-custom-secondary">0.4%</div>
+            <div class="bg-custom-secondary">9,982,008</div>
+          </div>
+        </div>
+    `;
+
+    container.innerHTML += pacienteHTML;
+  });
 }

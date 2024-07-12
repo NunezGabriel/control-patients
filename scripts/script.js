@@ -8,6 +8,7 @@ import {
   agregarDoctor,
   agregarContadorLS,
   mostrarDesenpeno,
+  mostrarFacturas,
 } from "./data.js";
 
 switch (window.location.href) {
@@ -87,6 +88,9 @@ switch (window.location.href) {
     break;
   case "http://127.0.0.1:5500/desempeno.html":
     mostrarDesenpeno();
+    break;
+  case "http://127.0.0.1:5500/facturas.html":
+    mostrarFacturas();
     break;
   default:
     console.log("no existo");
